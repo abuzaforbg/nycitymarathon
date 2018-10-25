@@ -1,0 +1,74 @@
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Website",
+        "publisher": {
+            "@type": "Person",
+            "name": "{{ site.author.name }}"
+        },
+        "url": "{{ site.url }}{% if site.baseurl %}{{ site.baseurl }}{% endif %}{{ page.url | remove_first: '/' }}",
+        "image": "{{site.url}}{{site.logo}}",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ site.url }}{% if site.baseurl %}{{ site.baseurl }}{% endif %}{{ page.url | remove_first: '/' }}"
+        },
+        "description": "{% if excerpt %}{{ excerpt }}{% elsif page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}"
+    }
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "{{ site.title }}",
+        "logo": {
+            "type": "ImageObject",
+            "url": "{{site.url}}{% if site.baseurl %}{{site.baseurl}}{% endif %}{{site.logo}}"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "{{site.author.name}}",
+        "image": "{% for author in site.data.authors %}{% if author[1].username == page.author %}{{site.url}}{{ author[1].picture }}{% endif %}{% endfor %}"
+    },
+    "headline": "{{ page.title }}",
+    "url": "{{site.url}}{% if site.baseurl %}{{site.baseurl}}{% endif %}{{page.url}}",
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "dateModified": "{{ page.last_modified_at | date_to_xmlschema }}",
+    "image": "{{site.url}}{% if site.baseurl%}{{site.baseurl}}{% endif %}{{page.cover}}",
+    "description": "{{page.description}}",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{site.url}}{% if page.layout == home %}}{{page.url}} {% else %}{% if site.baseurl %}{{site.baseurl}}{% endif %}{% endif %}"
+    }
+}
+    </script>
+
+{% if page.Schema_Type %}
+<script type="application/ld+json">
+    {
+        "@context":"http://schema.org/",
+        "@type":"Event",
+        {% if page.Schema_Name %}
+        "name":"{{ page.Schema_Name }}",
+        {% endif %}
+        "description": "{{ page.Schema_Event_Description }}",
+        {% if page.Schema_Event_Start %}
+        "startDate":"{{ page.Schema_Event_Start }}",
+        {% endif %}
+        {% if page.Schema_Event_End %}
+        "endDate": "{{ page.Schema_Event_End }}",
+        {% endif %}
+        "location": {
+            "@type":"{{page.Schema_Location_Type}}",
+            "name":"{{page.Schema_Location_Name}}",
+            "address": {
+                "@type": "PostalAddress", "addressLocality": "{{ page.Schema_Location_State }}", "addressCountry": "{{ page.Schema_Location_Country }}"
+            }
+        },
+        "image": "{{site.url}}{% if site.baseurl %}{{site.baseurl}}{% endif %}{{ page.cover }}"
+    }
+</script>
+{% endif %}

@@ -1,0 +1,32 @@
+---
+layout: default
+---
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full">
+
+            <header class="post-full-header">
+                <h1 class="post-full-title">{{ page.title }}</h1>
+            </header>
+            {% if page.cover %}
+                {% if page.cover_caption %}
+                <figure class="cover_image">
+                    <img src="{{ page.cover }}" alt="image for {{ page.title }}">
+                    <figcaption>{{ page.cover_caption }}</figcaption>
+                </figure>
+                {% else %}
+                <section class="cover_image">
+                    <img src="{{ page.cover }}" alt="image for {{ page.title }}">
+                </section>
+                {% endif %}
+            {% endif %}
+
+            <section class="post-full-content">
+                {{ content }}
+            </section>
+
+        </article>
+
+    </div>
+</main>

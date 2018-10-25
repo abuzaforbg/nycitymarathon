@@ -1,0 +1,38 @@
+<meta name="description" content="{{ page.description | strip_html | truncate: 215, '...' }}"/>
+	<link rel="canonical" href="{{ site.url }}{% if site.baseurl %}{{ site.baseurl }}{% endif %}{{ page.url | remove_first: '/' }}" />
+	<link rel="publisher" href="{% if page.publisher %}{{page.publisher}}{% else %}{{ site.publisher }}{% endif %}"/>
+
+	<!-- Facebook Open Graph -->
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="{% if title %}{{ title }}{% elsif page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
+	<meta property="og:description" content="{{ page.description | strip_html | truncate: 215, '...' }}" />
+	<meta property="og:url" content="{{ site.url }}{% if site.baseurl %}{{ site.baseurl }}{% endif %}{{ page.url | remove_first: '/' }}" />
+	<meta property="og:site_name" content="{{ site.title }}" />
+	{% if page.facebook or site.facebook %}
+	<meta property="article:publisher" content="{% if page.facebook %}{{ page.facebook }}{% else %}{{ site.facebook }}{% endif %}" />
+	{% endif %}
+	{% if page.tags %}
+	{% for tag in page.tags %}
+	<meta property="article:tag" content="{{ tag }}">
+	{% endfor %}
+	{% endif %}
+	{% if page.categories %}
+	<meta property="article:section" content="{{ page.categories }}" />
+	{% endif %}
+	{% if page.layout == post %}
+	<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}" />
+	<meta property="article:modified_time" content="{{ page.last_modified_at | date_to_xmlschema }}" />
+	<meta property="og:updated_time" content="{{ page.last_modified_at | date_to_xmlschema }}" />
+	<meta property="og:image" content="{% if page.cover %}{{ page.cover }}{% else %}{{ site.logo }}{% endif %}" />
+	{% endif %}
+
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="{% if page.cover %}summary_large_image{% else %}summary{% endif %}" />
+	<meta name="twitter:description" content="{% if page.description %}{{ page.description | truncate: 140 }}{% else %}{{ page.content | strip_html | truncate: 140 | append: '...' }}{% endif %}" />
+	<meta name="twitter:title" content="{% if title %}{{ title }}{% elsif page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
+	<meta name="twitter:site" content="@NY_CityMarathon" />
+	<meta name="twitter:image" content="{% if page.cover %}{{ site.url }}{% if site.baseurl %}{{ site.baseurl }}{% endif %}{{ page.cover }}{% else %}{{ site.url }}{% if site.baseurl %}{{ site.baseurl }}{% endif %}{{ site.logo }}{% endif %}" />
+	<meta name="twitter:creator" content="@NY_CityMarathon" />
+
+	{% include meta/schema.html %}

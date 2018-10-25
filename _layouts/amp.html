@@ -1,0 +1,15 @@
+---
+layout: amp
+---
+<!DOCTYPE html>
+<html ⚡ lang="en">
+  {% include amp/head.html %}
+  <body>
+    {% include amp/header.html %}
+
+    {% include amp/content.html %}
+    {% if site.analytics %}
+    {% include analytics/amp-analytics.html %}
+    {% endif %}
+  </body>
+</html>

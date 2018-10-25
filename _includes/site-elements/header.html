@@ -1,0 +1,25 @@
+<header class="header" itemscope itemtype="https://schema.org/WPHeader">
+	<div class="header__wrapper">
+		<div class="header__logo">
+			<a href="/"><img src="{{site.url}}{{ site.logo }}" alt="{{ site.title | append: ' logo' }}"></a>
+		</div>
+		{% if site.main_nav %}
+		<nav role="navigation" class="header__nav" itemscope itemtype="https://schema.org/SiteNavigationElement">
+			<ul class="header__nav__list">
+		    {% for item in site.main_nav %}
+
+		      {% if item[1] contains '://' %}
+		        {% assign url = item[1] %}
+		      {% else %}
+		        {% assign url = item[1] | relative_url %}
+		      {% endif %}
+		      <li class="nav-item item">
+		        <a href="{{ url }}" itemprop="url">{{ item[0] }}</a>
+		      </li>
+		    {% endfor %}
+		  </ul>
+		</nav>
+		{% endif %}
+	</div>
+	{% include site-elements/subhead.html %}
+</header>
